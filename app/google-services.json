@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1027746829425",
+    "project_id": "wwapp-edcac",
+    "storage_bucket": "wwapp-edcac.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027746829425:android:8329a5280a7a4e50ab37d0",
+        "android_client_info": {
+          "package_name": "com.example.lorexa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027746829425-lougt909p4923ljvl5d9i4qncmomqp1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAokraRQ-Gh69WbBcGEoMnv_EYrs-m37iM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027746829425-lougt909p4923ljvl5d9i4qncmomqp1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027746829425:android:39feec2b5954ccb4ab37d0",
+        "android_client_info": {
+          "package_name": "com.lorexa.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027746829425-lougt909p4923ljvl5d9i4qncmomqp1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAokraRQ-Gh69WbBcGEoMnv_EYrs-m37iM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027746829425-lougt909p4923ljvl5d9i4qncmomqp1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
