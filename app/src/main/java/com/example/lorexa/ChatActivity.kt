@@ -1,52 +1,61 @@
 package com.example.lorexa
 
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.speech.RecognizerIntent
+import android.speech.tts.TextToSpeech
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ScrollView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import okhttp3.OkHttpClient
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ChatActivity : AppCompatActivity() {
 
+    private var tts: TextToSpeech? = null
     private lateinit var apiService: ApiService
     private lateinit var adapter: ChatAdapter
     private val messageList = mutableListOf<ChatMessage>()
-
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        recyclerView = findViewById(R.id.chatRecyclerView)
+        // ✅ TTS INIT (FIXED)
+        tts = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                tts?.language = Locale.ENGLISH
+                tts?.setPitch(0.7f)        // deeper voice
+                tts?.setSpeechRate(0.85f)  // slower Einstein style
+            }
+        }
 
+        val micButton = findViewById<Button>(R.id.micButton)
+        val editText = findViewById<EditText>(R.id.editText)
+        val sendButton = findViewById<Button>(R.id.sendButton)
+
+        recyclerView = findViewById(R.id.chatRecyclerView)
         adapter = ChatAdapter(messageList)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val editText = findViewById<EditText>(R.id.editText)
-        val sendButton = findViewById<Button>(R.id.sendButton)
-
-        // ✅ OkHttp (timeout fix)
+        // ✅ Retrofit
         val client = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .build()
 
-        // ✅ Retrofit
         val retrofit = Retrofit.Builder()
             .baseUrl("https://openrouter.ai/api/v1/")
             .client(client)
@@ -55,21 +64,37 @@ class ChatActivity : AppCompatActivity() {
 
         apiService = retrofit.create(ApiService::class.java)
 
+        // ✅ SEND
         sendButton.setOnClickListener {
             val text = editText.text.toString()
-
             if (text.isNotBlank()) {
-
-                // ✅ Add user message
-                messageList.add(ChatMessage(text, true))
-                adapter.notifyItemInserted(messageList.size - 1)
-                recyclerView.scrollToPosition(messageList.size - 1)
-
+                addMessage(text, true)
                 editText.text.clear()
-
                 performChat(text)
             }
         }
+
+        // 🎤 MIC
+        micButton.setOnClickListener {
+            startVoiceInput()
+        }
+    }
+
+    private fun addMessage(text: String, isUser: Boolean) {
+        messageList.add(ChatMessage(text, isUser))
+        adapter.notifyItemInserted(messageList.size - 1)
+        recyclerView.scrollToPosition(messageList.size - 1)
+    }
+
+    // ✅ SPEAK FUNCTION (FIXED)
+    private fun speakFallback(text: String) {
+        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+    }
+
+    override fun onDestroy() {
+        tts?.stop()
+        tts?.shutdown()
+        super.onDestroy()
     }
 
     private fun performChat(userInput: String) {
@@ -78,16 +103,7 @@ class ChatActivity : AppCompatActivity() {
                 val messages = listOf(
                     Message(
                         role = "system",
-                        content = """
-                            You are Albert Einstein.
-
-                            Speak in clear, simple English. 
-                            Be thoughtful, curious, slightly philosophical, but NOT overly dramatic.
-
-                            Avoid fake German words like "mein freund".
-                            Keep responses natural, intelligent, and slightly witty.
-                              talk like you are chatting with some person means keep reply ,imimal and only required information don't give very long reply or unuseful information .
-                        """
+                        content = "You are Albert Einstein. Speak simply and clearly."
                     ),
                     Message("user", userInput)
                 )
@@ -97,7 +113,7 @@ class ChatActivity : AppCompatActivity() {
                     messages = messages
                 )
 
-                val token = "Bearer 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" // 🔒 keep your real key
+                val token = "Bearer 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"
 
                 val response = apiService.sendMessage(
                     token,
@@ -107,17 +123,40 @@ class ChatActivity : AppCompatActivity() {
                 )
 
                 val aiText = response.choices.firstOrNull()?.message?.content
-                    ?: "No AI reply received"
+                    ?: "No reply"
 
-                // ✅ Add AI message
-                messageList.add(ChatMessage(aiText, false))
-                adapter.notifyItemInserted(messageList.size - 1)
-                recyclerView.scrollToPosition(messageList.size - 1)
+                addMessage(aiText, false)
+
+                // 🔊 SPEAK RESPONSE
+                speakFallback(aiText)
 
             } catch (e: Exception) {
-                messageList.add(ChatMessage("Error: ${e.message}", false))
-                adapter.notifyItemInserted(messageList.size - 1)
+                addMessage("Error: ${e.message}", false)
+                speakFallback("Something went wrong")
             }
+        }
+    }
+
+    // 🎤 VOICE INPUT
+    private fun startVoiceInput() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        startActivityForResult(intent, 1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val spokenText = result?.get(0) ?: return
+
+            addMessage(spokenText, true)
+            performChat(spokenText)
         }
     }
 }

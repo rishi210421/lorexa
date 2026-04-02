@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.lorexa" />
+                  <option name="mobileSdkAppId" value="1:1027746829425:android:8329a5280a7a4e50ab37d0" />
+                  <option name="projectId" value="wwapp-edcac" />
+                  <option name="projectNumber" value="1027746829425" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
