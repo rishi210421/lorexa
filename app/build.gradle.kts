@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -76,5 +78,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-
+    implementation("com.google.firebase:firebase-firestore-ktx:25.1.4")
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    apply(plugin = "com.google.gms.google-services")
 }

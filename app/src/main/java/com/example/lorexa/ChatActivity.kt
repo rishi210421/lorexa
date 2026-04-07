@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -26,17 +28,21 @@ class ChatActivity : AppCompatActivity() {
     private val messageList = mutableListOf<ChatMessage>()
     private lateinit var recyclerView: RecyclerView
 
+    // 🔥 FIREBASE
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        // ✅ TTS INIT (FIXED)
+        // ✅ TTS INIT
         tts = TextToSpeech(this) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 tts?.language = Locale.ENGLISH
-                tts?.setPitch(0.7f)        // deeper voice
-                tts?.setSpeechRate(0.85f)  // slower Einstein style
+                tts?.setPitch(0.7f)
+                tts?.setSpeechRate(0.85f)
             }
         }
 
@@ -48,6 +54,9 @@ class ChatActivity : AppCompatActivity() {
         adapter = ChatAdapter(messageList)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // ✅ LOAD OLD CHAT FROM FIRESTORE
+        loadMessages()
 
         // ✅ Retrofit
         val client = OkHttpClient.Builder()
@@ -64,11 +73,12 @@ class ChatActivity : AppCompatActivity() {
 
         apiService = retrofit.create(ApiService::class.java)
 
-        // ✅ SEND
+        // ✅ SEND BUTTON
         sendButton.setOnClickListener {
             val text = editText.text.toString()
             if (text.isNotBlank()) {
                 addMessage(text, true)
+                saveMessage(text, "user") // 🔥 SAVE USER MESSAGE
                 editText.text.clear()
                 performChat(text)
             }
@@ -80,13 +90,55 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
+    // ✅ ADD MESSAGE TO UI
     private fun addMessage(text: String, isUser: Boolean) {
         messageList.add(ChatMessage(text, isUser))
         adapter.notifyItemInserted(messageList.size - 1)
         recyclerView.scrollToPosition(messageList.size - 1)
     }
 
-    // ✅ SPEAK FUNCTION (FIXED)
+    // 🔥 SAVE MESSAGE TO FIRESTORE
+    private fun saveMessage(text: String, sender: String) {
+        val userId = auth.currentUser?.uid ?: return
+
+        val map = hashMapOf(
+            "text" to text,
+            "sender" to sender,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        db.collection("users")
+            .document(userId)
+            .collection("messages")
+            .add(map)
+    }
+
+    // 🔥 LOAD OLD MESSAGES
+    private fun loadMessages() {
+        val userId = auth.currentUser?.uid ?: return
+
+        db.collection("users")
+            .document(userId)
+            .collection("messages")
+            .orderBy("timestamp")
+            .get()
+            .addOnSuccessListener { result ->
+                messageList.clear()
+
+                for (doc in result) {
+                    val text = doc.getString("text") ?: ""
+                    val sender = doc.getString("sender") ?: ""
+                    val isUser = sender == "user"
+
+                    messageList.add(ChatMessage(text, isUser))
+                }
+
+                adapter.notifyDataSetChanged()
+                recyclerView.scrollToPosition(messageList.size - 1)
+            }
+    }
+
+    // ✅ SPEAK
     private fun speakFallback(text: String) {
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
@@ -97,6 +149,7 @@ class ChatActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    // 🔥 CHAT API
     private fun performChat(userInput: String) {
         lifecycleScope.launch {
             try {
@@ -126,8 +179,8 @@ class ChatActivity : AppCompatActivity() {
                     ?: "No reply"
 
                 addMessage(aiText, false)
+                saveMessage(aiText, "ai") // 🔥 SAVE AI MESSAGE
 
-                // 🔊 SPEAK RESPONSE
                 speakFallback(aiText)
 
             } catch (e: Exception) {
@@ -156,6 +209,7 @@ class ChatActivity : AppCompatActivity() {
             val spokenText = result?.get(0) ?: return
 
             addMessage(spokenText, true)
+            saveMessage(spokenText, "user") // 🔥 SAVE VOICE MESSAGE
             performChat(spokenText)
         }
     }
