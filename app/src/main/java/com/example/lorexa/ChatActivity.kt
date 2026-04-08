@@ -27,16 +27,20 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var adapter: ChatAdapter
     private val messageList = mutableListOf<ChatMessage>()
     private lateinit var recyclerView: RecyclerView
-
+    private var character: String = "Albert Einstein"
     // 🔥 FIREBASE
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
 
+        loadMessages(character)
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        setContentView(R.layout.activity_chat)
+        setupCharacterUI(character)
+        character = intent.getStringExtra("character") ?: "Albert Einstein"
         // ✅ TTS INIT
         tts = TextToSpeech(this) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -55,8 +59,6 @@ class ChatActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // ✅ LOAD OLD CHAT FROM FIRESTORE
-        loadMessages()
 
         // ✅ Retrofit
         val client = OkHttpClient.Builder()
@@ -77,9 +79,13 @@ class ChatActivity : AppCompatActivity() {
         sendButton.setOnClickListener {
             val text = editText.text.toString()
             if (text.isNotBlank()) {
+
                 addMessage(text, true)
-                saveMessage(text, "user") // 🔥 SAVE USER MESSAGE
+
+                saveMessage(text, "user", character)   // 🔥 ADD THIS LINE
+
                 editText.text.clear()
+
                 performChat(text)
             }
         }
@@ -89,7 +95,40 @@ class ChatActivity : AppCompatActivity() {
             startVoiceInput()
         }
     }
+    private fun setupCharacterUI(character: String) {
 
+        val header = findViewById<TextView>(R.id.headerName)
+        val chatBg = findViewById<View>(R.id.rootLayout)
+
+        header.text = character
+
+        when (character) {
+
+            "Albert Einstein" -> {
+                chatBg.setBackgroundResource(R.drawable.bg_einstein)
+            }
+
+            "Cleopatra" -> {
+                chatBg.setBackgroundResource(R.drawable.bg_cleopatra)
+            }
+
+            "Leonardo da Vinci" -> {
+                chatBg.setBackgroundResource(R.drawable.bg_davinci)
+            }
+
+            "Marie Curie" -> {
+                chatBg.setBackgroundResource(R.drawable.bg_curie)
+            }
+
+            "Jane Austen" -> {
+                chatBg.setBackgroundResource(R.drawable.bg_austen)
+            }
+
+            "Martin Luther" -> {
+                chatBg.setBackgroundResource(R.drawable.bg_luther)
+            }
+        }
+    }
     // ✅ ADD MESSAGE TO UI
     private fun addMessage(text: String, isUser: Boolean) {
         messageList.add(ChatMessage(text, isUser))
@@ -98,7 +137,8 @@ class ChatActivity : AppCompatActivity() {
     }
 
     // 🔥 SAVE MESSAGE TO FIRESTORE
-    private fun saveMessage(text: String, sender: String) {
+    private fun saveMessage(text: String, sender: String, character: String) {
+
         val userId = auth.currentUser?.uid ?: return
 
         val map = hashMapOf(
@@ -110,31 +150,35 @@ class ChatActivity : AppCompatActivity() {
         db.collection("users")
             .document(userId)
             .collection("messages")
+            .document(character)   // 🔥 CHARACTER LEVEL
+            .collection("chat")
             .add(map)
     }
 
     // 🔥 LOAD OLD MESSAGES
-    private fun loadMessages() {
+    private fun loadMessages(character: String) {
+
         val userId = auth.currentUser?.uid ?: return
 
         db.collection("users")
             .document(userId)
             .collection("messages")
+            .document(character)
+            .collection("chat")
             .orderBy("timestamp")
             .get()
             .addOnSuccessListener { result ->
+
                 messageList.clear()
 
                 for (doc in result) {
                     val text = doc.getString("text") ?: ""
                     val sender = doc.getString("sender") ?: ""
-                    val isUser = sender == "user"
 
-                    messageList.add(ChatMessage(text, isUser))
+                    messageList.add(ChatMessage(text, sender == "user"))
                 }
 
                 adapter.notifyDataSetChanged()
-                recyclerView.scrollToPosition(messageList.size - 1)
             }
     }
 
@@ -151,13 +195,33 @@ class ChatActivity : AppCompatActivity() {
 
     // 🔥 CHAT API
     private fun performChat(userInput: String) {
+        val systemPrompt = when(character) {
+
+            "Leonardo da Vinci" ->
+                "You are Leonardo da Vinci. Speak creatively, like an inventor, artist and genius thinker. Be curious and imaginative."
+
+            "Cleopatra" ->
+                "You are Cleopatra. Speak like a powerful, confident and elegant queen."
+
+            "Albert Einstein" ->
+                "You are Albert Einstein. Explain things simply, scientifically and thoughtfully."
+
+            "Marie Curie" ->
+                "You are Marie Curie. Speak intelligently about science, discovery and persistence."
+
+            "Jane Austen" ->
+                "You are Jane Austen. Speak in a polite, literary and classic English tone."
+
+            "Martin Luther" ->
+                "You are Martin Luther. Speak like a bold reformer with strong beliefs."
+
+            else ->
+                "You are a historical figure."
+        }
         lifecycleScope.launch {
             try {
                 val messages = listOf(
-                    Message(
-                        role = "system",
-                        content = "You are Albert Einstein. Speak simply and clearly."
-                    ),
+                    Message("system", systemPrompt),
                     Message("user", userInput)
                 )
 
@@ -174,13 +238,11 @@ class ChatActivity : AppCompatActivity() {
                     "Lorexa",
                     request
                 )
-
-                val aiText = response.choices.firstOrNull()?.message?.content
-                    ?: "No reply"
+                val aiText = response.choices.firstOrNull()?.message?.content ?: "No reply"
 
                 addMessage(aiText, false)
-                saveMessage(aiText, "ai") // 🔥 SAVE AI MESSAGE
 
+                saveMessage(aiText, "ai", character)   // 🔥 ADD THIS LINE
                 speakFallback(aiText)
 
             } catch (e: Exception) {
@@ -209,7 +271,7 @@ class ChatActivity : AppCompatActivity() {
             val spokenText = result?.get(0) ?: return
 
             addMessage(spokenText, true)
-            saveMessage(spokenText, "user") // 🔥 SAVE VOICE MESSAGE
+            saveMessage(spokenText, "user",character) // 🔥 SAVE VOICE MESSAGE
             performChat(spokenText)
         }
     }

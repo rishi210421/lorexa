@@ -15,23 +15,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lorexa">
         <activity
+            android:name=".CharacterDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+                <action android:name="android.intent.action.MAIN" />
 
-        <!-- OTHER SCREENS -->
-        <activity android:name=".SignupActivity"/>
-        <activity android:name=".ResetPasswordActivity"/>
-        <activity android:name=".HomeActivity"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- OTHER SCREENS -->
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".HomeActivity" />
         <activity
             android:name=".ChatActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"/>
-
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
