@@ -20,6 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+import android.view.View
+import android.widget.TextView
 class ChatActivity : AppCompatActivity() {
 
     private var tts: TextToSpeech? = null
@@ -27,20 +29,22 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var adapter: ChatAdapter
     private val messageList = mutableListOf<ChatMessage>()
     private lateinit var recyclerView: RecyclerView
-    private var character: String = "Albert Einstein"
+//    private var character: String = "Albert Einstein"
     // 🔥 FIREBASE
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
+    private lateinit var character: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        character = intent.getStringExtra("character") ?: "default"
 
-        loadMessages(character)
+        loadMessages()
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContentView(R.layout.activity_chat)
         setupCharacterUI(character)
-        character = intent.getStringExtra("character") ?: "Albert Einstein"
+
         // ✅ TTS INIT
         tts = TextToSpeech(this) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -156,29 +160,29 @@ class ChatActivity : AppCompatActivity() {
     }
 
     // 🔥 LOAD OLD MESSAGES
-    private fun loadMessages(character: String) {
+    private fun loadMessages() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        val userId = auth.currentUser?.uid ?: return
-
-        db.collection("users")
+        FirebaseFirestore.getInstance()
+            .collection("users")
             .document(userId)
             .collection("messages")
-            .document(character)
+            .document(character) // ✅ IMPORTANT
             .collection("chat")
             .orderBy("timestamp")
             .get()
             .addOnSuccessListener { result ->
-
                 messageList.clear()
 
                 for (doc in result) {
                     val text = doc.getString("text") ?: ""
-                    val sender = doc.getString("sender") ?: ""
+                    val sender = doc.getString("sender") ?: "ai"
 
                     messageList.add(ChatMessage(text, sender == "user"))
                 }
 
                 adapter.notifyDataSetChanged()
+                recyclerView.scrollToPosition(messageList.size - 1)
             }
     }
 
