@@ -70,7 +70,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/ic_dialog_email"
-                    android:tint="#FFD700"/>
+                    app:tint="#FFD700" />
 
                 <TextView
                     android:id="@+id/conversationCount"
@@ -101,7 +101,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/btn_star_big_on"
-                    android:tint="#FFD700"/>
+                    app:tint="#FFD700" />
 
                 <TextView
                     android:id="@+id/favCount"
@@ -131,7 +131,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/ic_menu_agenda"
-                    android:tint="#FFD700"/>
+                    app:tint="#FFD700" />
 
                 <TextView
                     android:id="@+id/achievementCount"
@@ -153,6 +153,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Most Contacted"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:id="@+id/mostContactedContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorites"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:layout_marginTop="20dp"/>

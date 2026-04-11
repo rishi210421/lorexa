@@ -217,6 +217,8 @@ class ChatActivity : AppCompatActivity() {
             .document(character)   // 🔥 CHARACTER LEVEL
             .collection("chat")
             .add(map)
+
+        Log.d("FIREBASE_SAVE", "Saved to character: $character")
     }
 
     // 🔥 LOAD OLD MESSAGES
