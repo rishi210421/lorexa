@@ -211,13 +211,23 @@ class ChatActivity : AppCompatActivity() {
             "timestamp" to System.currentTimeMillis()
         )
 
-        db.collection("users")
+        val docRef = db.collection("users")
             .document(userId)
             .collection("messages")
-            .document(character)   // 🔥 CHARACTER LEVEL
-            .collection("chat")
-            .add(map)
+            .document(character)
 
+// 🔥 STEP 1: create parent document
+        docRef.set(
+            hashMapOf(
+                "name" to character,
+                "lastMessage" to text,
+                "timestamp" to System.currentTimeMillis()
+            )
+        )
+
+// 🔥 STEP 2: save chat
+        docRef.collection("chat")
+            .add(map)
         Log.d("FIREBASE_SAVE", "Saved to character: $character")
     }
 
