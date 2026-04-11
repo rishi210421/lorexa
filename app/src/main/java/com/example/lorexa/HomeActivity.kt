@@ -2,12 +2,16 @@ package com.example.lorexa
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.core.view.WindowCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 class HomeActivity : AppCompatActivity() {
 
@@ -20,7 +24,24 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_home)
+
+        val root = findViewById<View>(R.id.rootLayout)
+
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            view.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                systemBars.bottom
+            )
+
+            insets
+        }
 
         val navChat = findViewById<ImageView>(R.id.navChat)
         val navProfile = findViewById<ImageView>(R.id.navProfile)
@@ -40,12 +61,18 @@ class HomeActivity : AppCompatActivity() {
             Character("Albert Einstein", R.drawable.einstein),
             Character("Marie Curie", R.drawable.curie)
         )
-
         // 🔥 CURRENT LIST (THIS WILL CHANGE)
         val currentList = fullList.toMutableList()
 
         adapter = CharacterAdapter(currentList)
+        adapter.onItemClick = { character ->
 
+            val intent = Intent(this, ChatActivity::class.java)
+
+            intent.putExtra("character", character.name)
+
+            startActivity(intent)
+        }
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = adapter
 

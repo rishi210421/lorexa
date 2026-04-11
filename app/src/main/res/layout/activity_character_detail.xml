@@ -1,6 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/home_bg">
 
     <!-- IMAGE -->
@@ -8,7 +10,7 @@
         android:id="@+id/characterImage"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <!-- BACK BUTTON -->
     <ImageView
@@ -17,13 +19,13 @@
         android:layout_height="40dp"
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_media_previous"
-        android:tint="#FFD700"/>
+        app:tint="#FFD700" />
 
     <!-- NAME -->
     <TextView
         android:id="@+id/characterName"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@id/characterImage"
         android:layout_margin="16dp"
         android:text="Name"
@@ -34,7 +36,8 @@
     <Button
         android:id="@+id/startChatBtn"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:minHeight="70dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:text="START CONVERSATION"

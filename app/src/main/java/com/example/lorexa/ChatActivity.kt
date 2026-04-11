@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
@@ -19,9 +20,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
+import androidx.core.view.WindowCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.WindowInsetsCompat.Type.ime
+
+
+
 class ChatActivity : AppCompatActivity() {
 
     private var tts: TextToSpeech? = null
@@ -37,13 +46,47 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_chat)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+//
+//        val root = findViewById<View>(R.id.rootLayout)
+//
+//        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+//
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//
+//            view.setPadding(
+//                systemBars.left,
+//                systemBars.top,
+//                systemBars.right,
+//                0
+//            )
+//        insets
+//    }
+
+//        editText.setOnFocusChangeListener { _, hasFocus ->
+//            if (hasFocus) {
+//                recyclerView.postDelayed({
+//                    recyclerView.scrollToPosition(messageList.size - 1)
+//                }, 300)
+//            }
+//        }
         character = intent.getStringExtra("character") ?: "default"
 
-        loadMessages()
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        setContentView(R.layout.activity_chat)
+        val backBtn = findViewById<ImageView>(R.id.backBtn)
+
+        backBtn.setOnClickListener {
+            finish()
+        }
+//        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setupCharacterUI(character)
+
+//        val character = intent.getStringExtra("character") ?: "Character"
+
+        val headerName = findViewById<TextView>(R.id.headerName)
+        headerName.text = character
 
         // ✅ TTS INIT
         tts = TextToSpeech(this) { status ->
@@ -54,16 +97,46 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
-        val micButton = findViewById<Button>(R.id.micButton)
-        val editText = findViewById<EditText>(R.id.editText)
-        val sendButton = findViewById<Button>(R.id.sendButton)
+        val micButton = findViewById<ImageView>(R.id.micButton)
 
+        if (micButton == null) {
+            Log.e("CRASH_DEBUG", "micButton NOT FOUND ❌")
+        } else {
+            micButton.setOnClickListener {
+                Log.d("CLICK", "Mic clicked")
+            }
+        }
+        val editText = findViewById<EditText>(R.id.editText)
+        val sendButton = findViewById<ImageView>(R.id.sendButton)
+        if (sendButton == null) {
+            Log.e("DEBUG", "sendButton is NULL 💀")
+        }
         recyclerView = findViewById(R.id.chatRecyclerView)
         adapter = ChatAdapter(messageList)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+            if (bottom < oldBottom) {
+                recyclerView.post {
+                    recyclerView.scrollToPosition(messageList.size - 1)
+                }
+            }
+        }
+        loadMessages()
+        sendButton.setOnClickListener {
+            val text = editText.text.toString()
+            if (text.isNotBlank()) {
 
+                addMessage(text, true)
 
+                saveMessage(text, "user", character)   // 🔥 ADD THIS LINE
+
+                editText.text.clear()
+
+                performChat(text)
+            }
+        }
+        Log.d("DEBUG", "SendButton: $sendButton")
         // ✅ Retrofit
         val client = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -79,22 +152,6 @@ class ChatActivity : AppCompatActivity() {
 
         apiService = retrofit.create(ApiService::class.java)
 
-        // ✅ SEND BUTTON
-        sendButton.setOnClickListener {
-            val text = editText.text.toString()
-            if (text.isNotBlank()) {
-
-                addMessage(text, true)
-
-                saveMessage(text, "user", character)   // 🔥 ADD THIS LINE
-
-                editText.text.clear()
-
-                performChat(text)
-            }
-        }
-
-        // 🎤 MIC
         micButton.setOnClickListener {
             startVoiceInput()
         }
