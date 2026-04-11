@@ -1,40 +1,69 @@
 <RelativeLayout
+    android:id="@+id/rootLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_bg">
 
-    <!-- 🔥 HEADER (FIXED) -->
+    <!-- 🔥 HEADER -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="#0D1B2A">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lorexa"
-            android:textSize="22sp"
-            android:textColor="#FFFFFF"
-            android:padding="16dp" />
-
-
-        <EditText
+        <!-- TOP BAR -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:hint="Search historical figures..."
-            android:textColor="#FFFFFF"
-            android:background="@drawable/search_bg"
-            android:padding="14dp" />
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/menuIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_menu"
+                app:tint="#FFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="LOREXA"
+                android:textColor="#F4B942"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/profileIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/circle_bg"
+                android:src="@drawable/ic_profile" />
+        </RelativeLayout>
+
+        <!-- SEARCH -->
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/search_bg"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:hint="Ask Einstein anything..."
+            android:paddingStart="16dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#A0A0A0" />
+
+        <!-- CATEGORY CHIPS -->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -43,28 +72,52 @@
 
                 <Button
                     android:id="@+id/btnAll"
-                    android:text="ALL"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="All"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/chip_selected"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:layout_marginEnd="8dp"/>
 
                 <Button
                     android:id="@+id/btnScientists"
-                    android:text="SCIENTISTS"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Scientists"
+                    android:textColor="#CCCCCC"
+                    android:background="@drawable/chip_unselected"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:layout_marginEnd="8dp"/>
 
                 <Button
                     android:id="@+id/btnPhilosophers"
-                    android:text="PHILOSOPHERS"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Philosophers"
+                    android:textColor="#CCCCCC"
+                    android:background="@drawable/chip_unselected"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"/>
 
             </LinearLayout>
-        </HorizontalScrollView>
 
+        </HorizontalScrollView>
     </LinearLayout>
 
-    <!-- 🔥 FOOTER (FIXED) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/header"
+            android:layout_above="@id/footer"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            android:paddingBottom="90dp"/>
+
+
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
@@ -72,145 +125,100 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:background="#0D1B2A"
-        android:gravity="center_horizontal|center_vertical"
-        >
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/navHome"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_home"
-            app:tint="#F4B942" />
+        <!-- HOME -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/navChat"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_chat"
-            app:tint="#F4B942" />
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_home"
+                app:tint="#F4B942"/>
 
-        <ImageView
-            android:id="@+id/navProfile"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_profile"
-            app:tint="#F4B942" />
+            <TextView
+                android:text="Home"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#F4B942"/>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/navSettings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_settings"
-            app:tint="#F4B942" />
+        <!-- CHAT -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/navChat"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_chat"
+                app:tint="#FFFFFF"/>
+
+            <TextView
+                android:text="Chats"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <!-- PROFILE -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/navProfile"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_profile"
+                app:tint="#FFFFFF"/>
+
+            <TextView
+                android:text="Profile"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+        <!-- SETTINGS -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/navSettings"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_settings"
+                app:tint="#FFFFFF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="10sp"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
 
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/header"
-        android:layout_above="@id/footer"
-        android:padding="8dp"/>
 
 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<androidx.core.widget.NestedScrollView android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:fitsSystemWindows="true"-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android">-->
-
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:orientation="vertical"-->
-<!--    android:background="@drawable/home_bg">-->
-
-<!--    &lt;!&ndash; HEADER &ndash;&gt;-->
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Lorexa"-->
-<!--        android:textSize="22sp"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:padding="16dp"/>-->
-
-<!--    &lt;!&ndash; SEARCH &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:hint="Search historical figures..."-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:layout_margin="12dp"-->
-<!--        android:background="@drawable/search_bg"-->
-<!--        android:padding="12dp"/>-->
-
-<!--    &lt;!&ndash; CATEGORY &ndash;&gt;-->
-<!--    <HorizontalScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <Button android:text="All"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"/>-->
-<!--            <Button android:text="Scientists"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"/>-->
-<!--            <Button android:text="Philosophers"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"/>-->
-<!--        </LinearLayout>-->
-<!--    </HorizontalScrollView>-->
-
-<!--    &lt;!&ndash; GRID &ndash;&gt;-->
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recyclerView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"/>-->
-
-<!--    &lt;!&ndash; FOOTER &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="70dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:background="#0D1B2A"-->
-<!--        android:gravity="center">-->
-
-<!--        <TextView android:text="Home" android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" android:textColor="#FFD700"/>-->
-<!--        <TextView android:text="Chats" android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" android:textColor="#FFFFFF"/>-->
-<!--        <TextView android:text="Profile" android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" android:textColor="#FFFFFF"/>-->
-<!--        <TextView android:text="Settings" android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" android:textColor="#FFFFFF"/>-->
-<!--    </LinearLayout>-->
-
-<!--</LinearLayout>-->
-
-<!--</androidx.core.widget.NestedScrollView>-->
