@@ -45,6 +45,11 @@ class HomeActivity : AppCompatActivity() {
 
         val navChat = findViewById<ImageView>(R.id.navChat)
         val navProfile = findViewById<ImageView>(R.id.navProfile)
+
+        navProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
         val navSettings = findViewById<ImageView>(R.id.navSettings)
         // 🔥 CONNECT XML
         recyclerView = findViewById(R.id.recyclerView)
@@ -119,9 +124,11 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, ChatActivity::class.java))
         }
 
-        navProfile.setOnClickListener {
-            Toast.makeText(this, "Profile Coming Soon", Toast.LENGTH_SHORT).show()
-        }
+//        navProfile.setOnClickListener {
+//            val intent = Intent(this, ProfileActivity::class.java)
+//            startActivity(intent)
+//        }
+
 
         navSettings.setOnClickListener {
             Toast.makeText(this, "Settings Coming Soon", Toast.LENGTH_SHORT).show()

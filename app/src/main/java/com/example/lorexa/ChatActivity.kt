@@ -136,6 +136,9 @@ class ChatActivity : AppCompatActivity() {
                 performChat(text)
             }
         }
+
+        checkAchievement()
+
         Log.d("DEBUG", "SendButton: $sendButton")
         // ✅ Retrofit
         val client = OkHttpClient.Builder()
@@ -243,6 +246,23 @@ class ChatActivity : AppCompatActivity() {
             }
     }
 
+    private fun checkAchievement() {
+
+        val userId = auth.currentUser?.uid ?: return
+
+        if (messageList.size >= 5) {
+
+            val data = hashMapOf(
+                "title" to "Time Traveler"
+            )
+
+            db.collection("users")
+                .document(userId)
+                .collection("achievements")
+                .document("time_traveler")
+                .set(data)
+        }
+    }
     // ✅ SPEAK
     private fun speakFallback(text: String) {
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
