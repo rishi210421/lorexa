@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -53,9 +54,9 @@ val homeBtn = findViewById<ImageView>(R.id.homeBtn)
         }
         // 🔥 CONNECT XML
         recyclerView = findViewById(R.id.recyclerView)
-        btnAll = findViewById(R.id.btnAll)
-        btnScientists = findViewById(R.id.btnScientists)
-        btnPhilosophers = findViewById(R.id.btnPhilosophers)
+        val btnAll = findViewById<TextView>(R.id.btnAll)
+        val btnScientists = findViewById<TextView>(R.id.btnScientists)
+        val btnPhilosophers = findViewById<TextView>(R.id.btnPhilosophers)
 
         // 🔥 FULL LIST
         val fullList = listOf(

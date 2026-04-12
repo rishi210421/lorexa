@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:layout_above="@id/footerLayout">
+    android:layout_above="@id/footer">
 
     <!-- TITLE -->
     <TextView
@@ -30,47 +30,111 @@
         android:layout_marginTop="16dp"/>
 
 </LinearLayout>
-
 <!-- 🔥 FOOTER -->
-<LinearLayout
-    android:id="@+id/footerLayout"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_alignParentBottom="true"
-    android:background="#0F172A"
-    android:orientation="horizontal"
-    android:gravity="center">
 
-    <ImageView
-        android:id="@+id/homeBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_home"
-        android:layout_margin="20dp"/>
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#0D1B2A"
+        android:gravity="center"
+        android:layout_marginBottom="40dp" >
 
-    <ImageView
-        android:id="@+id/chatBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_chat"
-        android:layout_margin="20dp"/>
+        <!-- HOME -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/profileBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_profile"
-        android:layout_margin="20dp"
-        app:tint="#F4B942" />
+            <ImageView
+                android:id="@+id/homeBtn"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_home"
+                app:tint="#FFFFFF"/>
 
-    <ImageView
-        android:id="@+id/settingsBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_settings"
-        android:layout_margin="20dp"
-        app:tint="#F4B942"/>
+            <TextView
+                android:text="Home"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
 
-</LinearLayout>
+        <!-- CHAT -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/chatBtn"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_chat"
+                app:tint="#F4B942"/>
+
+            <TextView
+                android:text="Chats"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#F4B942"/>
+        </LinearLayout>
+
+        <!-- PROFILE -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/profileBtn"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_profile"
+                app:tint="#FFFFFF"/>
+
+            <TextView
+                android:text="Profile"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+        <!-- SETTINGS -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/settingsBtn"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_settings"
+                app:tint="#FFFFFF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="10sp"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

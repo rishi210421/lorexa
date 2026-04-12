@@ -38,7 +38,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, ChatListActivity::class.java))
         }
 
-        findViewById<ImageView>(R.id.navProfile).setOnClickListener {
+        findViewById<ImageView>(R.id.profileBtn).setOnClickListener {
             // Already on profile
         }
 
