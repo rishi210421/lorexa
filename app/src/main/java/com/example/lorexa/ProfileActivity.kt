@@ -1,11 +1,14 @@
 package com.example.lorexa
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,7 +16,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-
+import kotlin.jvm.java
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -24,8 +27,24 @@ class ProfileActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        val root = findViewById<View>(android.R.id.content)
+        val root = findViewById<View>(R.id.profileRoot)
 
+        // 🔥 FOOTER NAVIGATION (ADD THIS HERE)
+        findViewById<ImageView>(R.id.homeBtn).setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.chatBtn).setOnClickListener {
+            startActivity(Intent(this, ChatListActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.navProfile).setOnClickListener {
+            // Already on profile
+        }
+
+        findViewById<ImageView>(R.id.settingsBtn).setOnClickListener {
+                Toast.makeText(this, "Settings Coming Soon", Toast.LENGTH_SHORT).show()
+        }
         ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
 
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -34,7 +53,7 @@ class ProfileActivity : AppCompatActivity() {
                 systemBars.left,
                 systemBars.top,   // 🔥 THIS FIXES TOP CUT
                 systemBars.right,
-                systemBars.bottom
+                systemBars.bottom + 80
             )
 
             insets

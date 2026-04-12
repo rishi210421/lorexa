@@ -85,7 +85,7 @@
             app:tint="#F4B942" />
 
         <ImageView
-            android:id="@+id/navChat"
+            android:id="@+id/chatBtn"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_chat"

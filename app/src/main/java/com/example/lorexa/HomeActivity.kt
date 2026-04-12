@@ -43,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
 
-        val navChat = findViewById<ImageView>(R.id.navChat)
+        val chatBtn = findViewById<ImageView>(R.id.chatBtn)
         val navProfile = findViewById<ImageView>(R.id.navProfile)
 
         navProfile.setOnClickListener {
@@ -72,7 +72,7 @@ class HomeActivity : AppCompatActivity() {
         adapter = CharacterAdapter(currentList)
         adapter.onItemClick = { character ->
 
-            val intent = Intent(this, ChatActivity::class.java)
+            val intent = Intent(this, ChatListActivity::class.java)
 
             intent.putExtra("character", character.name)
 
@@ -120,8 +120,8 @@ class HomeActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
 
-        navChat.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java))
+        chatBtn.setOnClickListener {
+            startActivity(Intent(this, ChatListActivity::class.java))
         }
 
 //        navProfile.setOnClickListener {

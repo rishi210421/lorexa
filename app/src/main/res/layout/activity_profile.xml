@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profileRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="80dp"
     android:background="@drawable/profile_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingBottom="20dp">
 
         <!-- 🔥 PROFILE HEADER -->
         <LinearLayout
@@ -197,4 +205,53 @@
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>
+
 </ScrollView>
+
+<!-- 🔥 FOOTER -->
+<LinearLayout
+    android:id="@+id/footerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_alignParentBottom="true"
+    android:background="#0F172A"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <!-- HOME -->
+    <ImageView
+        android:id="@+id/homeBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_home"
+        android:layout_margin="20dp"/>
+
+    <!-- CHAT -->
+    <ImageView
+        android:id="@+id/chatBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_chat"
+        android:layout_margin="20dp"/>
+
+    <!-- PROFILE -->
+    <ImageView
+        android:id="@+id/navProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_profile"
+        android:layout_margin="20dp"
+        app:tint="#F4B942" />
+
+    <!-- SETTINGS -->
+    <ImageView
+        android:id="@+id/settingsBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_settings"
+        android:layout_margin="20dp"
+        app:tint="#F4B942"/>
+
+</LinearLayout>
+
+</RelativeLayout>
