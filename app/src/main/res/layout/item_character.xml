@@ -1,27 +1,31 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<FrameLayout android:layout_width="match_parent"
     android:layout_height="220dp"
-    android:orientation="vertical"
     android:layout_margin="8dp"
-    android:background="@drawable/card_bg">
+    android:background="@drawable/genie"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/characterImage"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/name"
+    <!-- Gradient overlay -->
+    <View
         android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/gradient_overlay"/>
+
+    <!-- Name -->
+    <TextView
+        android:id="@+id/characterName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
-        android:gravity="center"
+        android:textStyle="bold"
         android:textSize="16sp"
-        android:padding="6dp"/>
+        android:layout_gravity="bottom|start"
+        android:layout_margin="12dp"/>
 
-<!--    android:foreground="?attr/selectableItemBackground"-->
-<!--    android:elevation="8dp"-->
-<!--    android:background="@drawable/card_bg"-->
-
-</LinearLayout>
+</FrameLayout>

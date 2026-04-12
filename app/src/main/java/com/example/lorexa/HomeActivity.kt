@@ -42,15 +42,15 @@ class HomeActivity : AppCompatActivity() {
 
             insets
         }
-
+val homeBtn = findViewById<ImageView>(R.id.homeBtn)
         val chatBtn = findViewById<ImageView>(R.id.chatBtn)
-        val navProfile = findViewById<ImageView>(R.id.navProfile)
+        val navProfile = findViewById<ImageView>(R.id.profileBtn)
+        val navSettings = findViewById<ImageView>(R.id.settingsBtn)
 
         navProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
-        val navSettings = findViewById<ImageView>(R.id.navSettings)
         // 🔥 CONNECT XML
         recyclerView = findViewById(R.id.recyclerView)
         btnAll = findViewById(R.id.btnAll)

@@ -13,8 +13,8 @@ class CharacterAdapter(private val list: List<Character>) :
     RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
     var onItemClick: ((Character) -> Unit)? = null
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.image)
-        val name: TextView = view.findViewById(R.id.name)
+        val image: ImageView = view.findViewById(R.id.characterImage)
+        val name: TextView = view.findViewById(R.id.characterName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
