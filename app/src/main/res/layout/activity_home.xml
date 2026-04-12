@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Lorexa"
             android:textSize="22sp"
-            android:textColor="#FFFFFF"
+            android:textColor="#F4B942"
             android:padding="16dp" />
 
 
@@ -67,51 +67,52 @@
 
     <!-- 🔥 FOOTER (FIXED) -->
     <LinearLayout
-        android:id="@+id/footer"
+        android:id="@+id/footerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="70dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
+        android:background="#0F172A"
         android:orientation="horizontal"
-        android:background="#0D1B2A"
-        android:gravity="center_horizontal|center_vertical"
-        >
+        android:gravity="center">
 
         <ImageView
-            android:id="@+id/navHome"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/homeBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_home"
-            app:tint="#F4B942" />
+            android:layout_margin="20dp"/>
 
         <ImageView
             android:id="@+id/chatBtn"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_chat"
-            app:tint="#F4B942" />
+            android:layout_margin="20dp"/>
 
         <ImageView
-            android:id="@+id/navProfile"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/profileBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_profile"
+            android:layout_margin="20dp"
             app:tint="#F4B942" />
 
         <ImageView
-            android:id="@+id/navSettings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/settingsBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_settings"
-            app:tint="#F4B942" />
+            android:layout_margin="20dp"
+            app:tint="#F4B942"/>
 
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"
-        android:layout_above="@id/footer"
+        android:layout_above="@id/footerLayout"
         android:paddingBottom="90dp"
         android:padding="8dp"/>
 

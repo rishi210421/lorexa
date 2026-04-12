@@ -1,26 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:background="@drawable/profile_bg"
-android:padding="16dp">
-
-<!-- TITLE -->
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Conversations"
-    android:textColor="#FFFFFF"
-    android:textSize="22sp"
-    android:textStyle="bold"
-    android:layout_marginTop="20dp"/>
-
-<!-- LIST -->
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/chatListRecycler"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="16dp"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/profile_bg">
+
+<!-- 🔥 MAIN CONTENT -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_above="@id/footerLayout">
+
+    <!-- TITLE -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Conversations"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+    <!-- LIST -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatListRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"/>
 
 </LinearLayout>
+
+<!-- 🔥 FOOTER -->
+<LinearLayout
+    android:id="@+id/footerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_alignParentBottom="true"
+    android:background="#0F172A"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/homeBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_home"
+        android:layout_margin="20dp"/>
+
+    <ImageView
+        android:id="@+id/chatBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_chat"
+        android:layout_margin="20dp"/>
+
+    <ImageView
+        android:id="@+id/profileBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_profile"
+        android:layout_margin="20dp"
+        app:tint="#F4B942" />
+
+    <ImageView
+        android:id="@+id/settingsBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_settings"
+        android:layout_margin="20dp"
+        app:tint="#F4B942"/>
+
+</LinearLayout>
+
+</RelativeLayout>

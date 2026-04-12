@@ -2,6 +2,8 @@ package com.example.lorexa
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,6 +27,21 @@ class ChatListActivity : AppCompatActivity() {
         recycler = findViewById(R.id.chatListRecycler)
 
         loadChats()
+        findViewById<ImageView>(R.id.homeBtn).setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.chatBtn).setOnClickListener {
+            // Already on chat list
+        }
+
+        findViewById<ImageView>(R.id.profileBtn).setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.settingsBtn).setOnClickListener {
+            Toast.makeText(this, "Settings Coming Soon", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun loadChats() {
