@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
                 password.text.toString()
             ).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    startActivity(Intent(this, ChatActivity::class.java))
+                    startActivity(Intent(this, HomeActivity::class.java))
                     finish()
                 } else {
                     Toast.makeText(this, it.exception?.message, Toast.LENGTH_SHORT).show()

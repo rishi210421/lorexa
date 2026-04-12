@@ -27,7 +27,7 @@
         <EditText
             android:id="@+id/name"
             android:hint="Full Name"
-            android:layout_width="344.63dp"
+            android:layout_width="match_parent"
             android:layout_height="58.04dp"
             android:textColor="#FFD700"
             android:background="@drawable/input_bg"
@@ -36,7 +36,7 @@
         <EditText
             android:id="@+id/email"
             android:hint="Email Address"
-            android:layout_width="344.63dp"
+            android:layout_width="match_parent"
             android:layout_height="58.04dp"
             android:background="@drawable/input_bg"
             android:textColor="#fff"
@@ -45,7 +45,7 @@
         <EditText
             android:id="@+id/password"
             android:hint="Password"
-            android:layout_width="344.63dp"
+            android:layout_width="match_parent"
             android:layout_height="58.04dp"
             android:inputType="textPassword"
             android:background="@drawable/input_bg"

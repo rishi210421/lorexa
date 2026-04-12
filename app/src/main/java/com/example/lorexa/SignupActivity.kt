@@ -60,7 +60,7 @@ class SignupActivity : AppCompatActivity() {
 
                                     Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show()
 
-                                    startActivity(Intent(this, ChatActivity::class.java))
+                                    startActivity(Intent(this, HomeActivity::class.java))
                                     finish()
                                 }
                                 .addOnFailureListener {

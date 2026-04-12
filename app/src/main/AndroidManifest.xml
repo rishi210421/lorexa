@@ -19,15 +19,16 @@
         <activity
             android:name=".CharacterDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
+        <activity android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- OTHER SCREENS -->
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"/><!-- OTHER SCREENS -->
         <activity android:name=".SignupActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".HomeActivity" />
