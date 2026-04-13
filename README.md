@@ -100,7 +100,7 @@ git clone https://github.com/rishi210421/lorexa.git
 
 ## 🎬 8. Demo Video
 
-🔗 YouTube Link: *(Add your video link here)*
+🔗 YouTube Link: https://www.youtube.com/watch?si=EGxs0dQPZ9D8USw7&v=vdxRj0o3vms&feature=youtu.be
 
 ---
 
