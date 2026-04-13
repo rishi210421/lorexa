@@ -1,54 +1,60 @@
-# 🚀 Lorexa – AI-Powered Conversational Learning App
+# Lorexa – AI-Powered Conversational Learning App
 
-##  Description
-Lorexa is an AI-powered mobile application that enables users to engage in immersive conversations with digital avatars of historical figures, scientists, philosophers, and fictional characters. By combining artificial intelligence, interactive storytelling, and visually engaging avatars, the app simulates realistic conversations, making users feel like they are interacting with personalities from different eras.
-
-Lorexa transforms traditional learning into an interactive experience where users can ask questions, explore ideas, and learn through dynamic conversations instead of passive reading.
+## Overview
+Lorexa is an AI-powered mobile application that enables users to engage in immersive conversations with digital avatars of historical figures, scientists, philosophers, and fictional characters. The app transforms traditional learning into an interactive experience by allowing users to ask questions and receive responses in the style and personality of these figures.
 
 ---
 
-## 🎯 Core Value Proposition
-- Interactive learning through AI conversations  
-- Realistic personality-based responses  
-- Blend of education, entertainment, and storytelling  
-- Engaging alternative to traditional learning methods  
+## Problem Statement
+Most educational platforms today rely on passive learning methods such as reading articles, watching videos, or completing quizzes. These approaches often fail to keep users engaged and do not provide a conversational or interactive experience.
+
+Lorexa addresses this gap by introducing a dynamic and immersive platform where users can interact with AI-powered characters, making learning more engaging, personalized, and memorable.
 
 ---
 
-## 👥 Team Members
+## Team Members
 
-| Name | Role | Contribution |
-|------|------|-------------|
-| **Rishi Senani** | Backend & AI Integration Developer | 40% |
-| **Palak Makwana** | Frontend & Android Developer | 30% |
-| **Inzila Khan** | Research & Database Manager | 30% |
-
----
-
-## 🎯 Target Users
-- Students  
-- History enthusiasts  
-- Educators  
-- Curious learners  
-- Users interested in storytelling & philosophy  
+| Name | Role | Responsibilities |
+|------|------|-----------------|
+| Rishi Senani | Backend & AI Integration Developer | Backend logic, AI API integration, Firebase setup |
+| Palak Makwana | Frontend & Android Developer | UI design, Android development, navigation |
+| Inzila Khan | Research & Database Manager | Data collection, database management, testing |
 
 ---
 
-## 📱 Platform
-- Android (Mobile Application)
-
----
-
-## 🛠 Tech Stack
+## Tech Stack
 
 | Category | Technology |
-|----------|----------|
-| Language | Kotlin |
+|----------|-----------|
 | Framework | Android SDK |
+| Language | Kotlin |
 | IDE | Android Studio |
 | Database | Firebase Firestore |
 | Authentication | Firebase Auth |
-| AI Integration | External AI APIs |
+| AI Integration | OpenAI API |
 
 ---
 
+## Features
+
+- Interactive conversations with historical and fictional characters  
+- AI-generated responses based on character personality  
+- Chat-based and voice-based interaction  
+- User authentication and profile management  
+- Conversation history tracking  
+- Dark-themed immersive UI  
+
+---
+
+## Project Structure
+
+```bash
+Lorexa/
+│── README.md
+│── LICENSE
+│── CONTRIBUTING.md
+│── .gitignore
+│
+├── /app
+├── /docs
+├── /assets
