@@ -14,6 +14,7 @@
             android:layout_height="40dp"
             android:text="Create Account"
             android:textColor="#fff"
+            android:layout_marginTop="40dp"
             android:textSize="26sp" />
 
         <TextView
@@ -26,37 +27,41 @@
 
         <EditText
             android:id="@+id/name"
-            android:hint="Full Name"
+            android:hint="  Full Name"
             android:layout_width="match_parent"
-            android:layout_height="58.04dp"
-            android:textColor="#FFD700"
+            android:layout_height="58dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             android:background="@drawable/input_bg"
             android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/email"
-            android:hint="Email Address"
+            android:hint="  Email Address"
             android:layout_width="match_parent"
             android:layout_height="58.04dp"
             android:background="@drawable/input_bg"
             android:textColor="#fff"
+            android:textColorHint="#FFFFFF"
             android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/password"
-            android:hint="Password"
+            android:hint="  Password"
             android:layout_width="match_parent"
             android:layout_height="58.04dp"
             android:inputType="textPassword"
             android:background="@drawable/input_bg"
             android:textColor="#fff"
+            android:textColorHint="#FFFFFF"
             android:layout_marginBottom="10dp"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/signupBtn"
             android:text="Sign Up"
+            android:textColor="#000000"
             android:backgroundTint="#FFD700"/>
 
     </LinearLayout>

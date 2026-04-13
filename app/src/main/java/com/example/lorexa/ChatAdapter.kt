@@ -37,9 +37,9 @@ class ChatAdapter(private val messages: List<ChatMessage>) :
         val item = messages[position]
 
         if (holder is UserViewHolder) {
-            holder.msg.text = item.message
+            holder.msg.text = item.text
         } else if (holder is AiViewHolder) {
-            holder.msg.text = item.message
+            holder.msg.text = item.text
         }
     }
 
@@ -48,6 +48,6 @@ class ChatAdapter(private val messages: List<ChatMessage>) :
     }
 
     class AiViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val msg: TextView = view.findViewById(R.id.textAI)
+        val msg: TextView = view.findViewById(R.id.aiMessage)
     }
 }

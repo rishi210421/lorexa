@@ -23,7 +23,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_media_previous"
+        android:src="@drawable/ic_back"
         android:tint="#FFD700" />
 
     <!-- NAME -->
@@ -59,7 +59,7 @@
         android:layout_below="@id/characterDescription"
         android:layout_marginStart="16dp"
         android:backgroundTint="#1C2541"
-        android:text="Add to Favorites"
+        android:text="Add to Favorites ❤️"
         android:textColor="#FFFFFF" />
 
     <!-- START CHAT -->

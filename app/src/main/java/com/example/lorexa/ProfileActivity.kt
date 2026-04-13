@@ -210,7 +210,7 @@ class ProfileActivity : AppCompatActivity() {
                     name.textSize = 16f
 
                     val chatCount = TextView(this)
-                    chatCount.text = "🔥 Favorite"
+                    chatCount.text = "❤️ Favorite"
                     chatCount.setTextColor(resources.getColor(android.R.color.holo_orange_light))
                     chatCount.textSize = 14f
 
