@@ -38,6 +38,7 @@ class CharacterAdapter(private val list: List<Character>) :
                 val intent = Intent(context, CharacterDetailActivity::class.java)
                 intent.putExtra("name", item.name)
                 intent.putExtra("image", item.image)
+                intent.putExtra("description", item.description)
                 context.startActivity(intent)
             }
         }

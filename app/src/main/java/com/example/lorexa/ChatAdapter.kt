@@ -14,34 +14,40 @@ class ChatAdapter(private val messages: List<ChatMessage>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return if (viewType == 1) {
+            // USER MESSAGE (RIGHT)
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_user, parent, false)
+                .inflate(R.layout.item_chat_user, parent, false)
             UserViewHolder(view)
+
         } else {
+            // AI MESSAGE (LEFT)
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_ai, parent, false)
-            AIViewHolder(view)
+                .inflate(R.layout.item_chat_ai, parent, false)
+            AiViewHolder(view)
         }
     }
+
 
     override fun getItemCount() = messages.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val message = messages[position]
+
+        val item = messages[position]
 
         if (holder is UserViewHolder) {
-            holder.text.text = message.text
-        } else if (holder is AIViewHolder) {
-            holder.text.text = message.text
+            holder.msg.text = item.message
+        } else if (holder is AiViewHolder) {
+            holder.msg.text = item.message
         }
     }
 
     class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val text: TextView = view.findViewById(R.id.textUser)
+        val msg: TextView = view.findViewById(R.id.userMessage)
     }
 
-    class AIViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val text: TextView = view.findViewById(R.id.textAI)
+    class AiViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val msg: TextView = view.findViewById(R.id.textAI)
     }
 }

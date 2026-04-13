@@ -42,6 +42,35 @@ class ChatListActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.settingsBtn).setOnClickListener {
             Toast.makeText(this, "Settings Coming Soon", Toast.LENGTH_SHORT).show()
         }
+
+        val list = listOf(
+            Character(
+                "Leonardo da Vinci",
+                R.drawable.leonardo,
+                "A genius of the Renaissance, master of art, science, and invention. Creator of the Mona Lisa and visionary thinker ahead of his time."
+            ),
+            Character(
+                "Cleopatra",
+                R.drawable.cleopatra,
+                "The last Queen of Egypt, known for her intelligence, charm, and political power. She shaped history through diplomacy and strategy."
+            ),
+            Character(
+                "Albert Einstein",
+                R.drawable.einstein,
+                "A revolutionary physicist who developed the theory of relativity. His ideas transformed our understanding of space, time, and energy."
+            ),
+            Character(
+                "Martin Luther",
+                R.drawable.martin,
+                "A key figure in the Protestant Reformation. His 95 Theses challenged the Church and changed the course of Christianity forever."
+            ),
+            Character(
+                "Jane Austen",
+                R.drawable.jane,
+                "A brilliant novelist known for her wit and insight into human relationships. Author of Pride and Prejudice and timeless classics."
+            )
+        )
+
     }
 
     private fun loadChats() {

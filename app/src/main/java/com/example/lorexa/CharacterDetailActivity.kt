@@ -75,9 +75,15 @@ class CharacterDetailActivity : AppCompatActivity() {
             val intent = Intent(this, ChatActivity::class.java)
             intent.putExtra("character", characterName)
 
+
+
             startActivity(intent)
         }
 
+        val description = intent.getStringExtra("description") ?: ""
+
+        findViewById<TextView>(R.id.characterName).text = characterName
+        findViewById<TextView>(R.id.characterDescription).text = description
         findViewById<ImageView>(R.id.backBtn).setOnClickListener {
             finish()
         }

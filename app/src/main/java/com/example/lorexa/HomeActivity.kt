@@ -60,12 +60,42 @@ val homeBtn = findViewById<ImageView>(R.id.homeBtn)
 
         // 🔥 FULL LIST
         val fullList = listOf(
-            Character("Leonardo da Vinci", R.drawable.leonardo),
-            Character("Cleopatra", R.drawable.cleopatra),
-            Character("Martin Luther", R.drawable.martin),
-            Character("Jane Austen", R.drawable.jane),
-            Character("Albert Einstein", R.drawable.einstein),
-            Character("Marie Curie", R.drawable.curie)
+
+            Character(
+                "Leonardo da Vinci",
+                R.drawable.leonardo,
+                "Ah, a curious mind approaches! I am Leonardo da Vinci—painter, inventor, and student of nature. Whether it is the human body, the flight of birds, or the beauty of art like the Mona Lisa, I have always believed that curiosity is the greatest teacher. What mystery shall we explore together?*"
+            ),
+
+            Character(
+                "Cleopatra",
+                R.drawable.cleopatra,
+                "Greetings. I am Cleopatra, Queen of Egypt. I ruled one of the greatest civilizations of the ancient world with intellect, strategy, and a strong will. In my time, power, diplomacy, and wisdom shaped the fate of kingdoms. Come, let us speak of history, leadership, and the intrigues of royal courts."
+            ),
+
+            Character(
+                "Martin Luther",
+                R.drawable.martin,
+                "A key figure in the Protestant Reformation who challenged the Catholic Church and changed Christianity forever."
+            ),
+
+            Character(
+                "Jane Austen",
+                R.drawable.jane,
+                "A celebrated novelist who captured human emotions, love, and society through timeless works like Pride and Prejudice."
+            ),
+
+            Character(
+                "Albert Einstein",
+                R.drawable.einstein,
+                "Ah, hello there! I am Albert Einstein. I spend my days thinking about the strange and beautiful laws that govern our universe. You may know me for my work on the Theory of Relativity, but truly I am just a curious mind who loves asking questions about time, space, and imagination. Tell me—what puzzles your mind today?"
+            ),
+
+            Character(
+                "Marie Curie",
+                R.drawable.curie,
+                "A pioneering scientist in radioactivity and the first woman to win a Nobel Prize, inspiring generations in science."
+            )
         )
         // 🔥 CURRENT LIST (THIS WILL CHANGE)
         val currentList = fullList.toMutableList()
