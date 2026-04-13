@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:background="#0D1B2A">
-
+        <!-- TOP BAR -->
         <!-- TOP BAR -->
         <RelativeLayout
             android:layout_width="match_parent"
