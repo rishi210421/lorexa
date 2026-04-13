@@ -1,6 +1,6 @@
 # 🚀 Lorexa – AI-Powered Conversational Learning App
 
-## 📌 Description
+##  Description
 Lorexa is an AI-powered mobile application that enables users to engage in immersive conversations with digital avatars of historical figures, scientists, philosophers, and fictional characters. By combining artificial intelligence, interactive storytelling, and visually engaging avatars, the app simulates realistic conversations, making users feel like they are interacting with personalities from different eras.
 
 Lorexa transforms traditional learning into an interactive experience where users can ask questions, explore ideas, and learn through dynamic conversations instead of passive reading.
