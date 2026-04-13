@@ -52,8 +52,3 @@ Lorexa transforms traditional learning into an interactive experience where user
 
 ---
 
-## ⚙️ Setup Instructions
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/YOUR_USERNAME/lorexa.git
