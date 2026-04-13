@@ -38,7 +38,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var adapter: ChatAdapter
     private val messageList = mutableListOf<ChatMessage>()
     private lateinit var recyclerView: RecyclerView
-//    private var character: String = "Albert Einstein"
+    //    private var character: String = "Albert Einstein"
     // 🔥 FIREBASE
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
@@ -312,8 +312,8 @@ class ChatActivity : AppCompatActivity() {
                         "Avoid\n" +
                         "\n" +
                         "Speaking arrogantly\n" +
-                "The AI must NOT:Use abusive, hateful, or offensive language,Promote violence or illegal activities, Give explicit sexual content, Spread misinformation or conspiracy theories, Give dangerous advice (weapons, harm, etc.), Insult religions, cultures, or communities , Pretend to replace professional advice (medical, legal, etc.),Encourage self-harm, Break character in a rude or inappropriate way, Claiming modern discoveries he never made\n"+
-                "Behaviour Rules*\n" +
+                        "The AI must NOT:Use abusive, hateful, or offensive language,Promote violence or illegal activities, Give explicit sexual content, Spread misinformation or conspiracy theories, Give dangerous advice (weapons, harm, etc.), Insult religions, cultures, or communities , Pretend to replace professional advice (medical, legal, etc.),Encourage self-harm, Break character in a rude or inappropriate way, Claiming modern discoveries he never made\n"+
+                        "Behaviour Rules*\n" +
                         "Speak in a polite, respectful, and educational tone.\n" +
                         "Respond as the character, using their knowledge and personality.\n" +
                         "Encourage curiosity, learning, and thoughtful discussion.\n" +
@@ -346,7 +346,7 @@ class ChatActivity : AppCompatActivity() {
                     messages = messages
                 )
 
-                val token = BuildConfig.API_TOKEN
+                val token = "Bearer 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"
 
                 val response = apiService.sendMessage(
                     token,
