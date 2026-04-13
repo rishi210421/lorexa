@@ -1,31 +1,44 @@
-<FrameLayout android:layout_width="match_parent"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="220dp"
     android:layout_margin="8dp"
-    android:background="@drawable/genie"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@drawable/gold_border"
+    android:padding="2dp">  <!-- IMPORTANT -->
 
-    <ImageView
-        android:id="@+id/characterImage"
+    <!-- INNER CARD -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:background="@drawable/genie"
+        android:clipToOutline="true">
 
-    <!-- Gradient overlay -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/gradient_overlay"/>
+        <!-- IMAGE -->
+        <ImageView
+            android:id="@+id/characterImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/image_round"/>
 
-    <!-- Name -->
-    <TextView
-        android:id="@+id/characterName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="12dp"/>
+        <!-- GRADIENT OVERLAY -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/gradient_overlay"/>
+
+        <!-- NAME -->
+        <TextView
+            android:id="@+id/characterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="12dp"/>
+
+    </FrameLayout>
 
 </FrameLayout>
