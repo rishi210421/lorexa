@@ -346,7 +346,7 @@ class ChatActivity : AppCompatActivity() {
                     messages = messages
                 )
 
-                val token = "Bearer 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"
+                val token = BuildConfig.API_TOKEN
 
                 val response = apiService.sendMessage(
                     token,
